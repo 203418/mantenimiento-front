@@ -7,7 +7,7 @@ const SignUpGer = ()=> {
         <div>
             <section className="divisor">
             <div className="izquierda">
-                <h1 id="h1A">Hola Gerente</h1>
+                <h1 id="h1A">Hola Gerente!</h1>
                 <h2 id="h2A">Aquí puedes crear tu usuario</h2>
                 <img className="Img-A" src={img1} />
             </div>
