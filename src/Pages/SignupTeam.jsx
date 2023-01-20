@@ -1,14 +1,15 @@
-import React from 'react'
-import img1 from "../assets/img/clip-961.png";
+import React from "react";
+import img1 from "../assets/img/clip-1717.png";
 import "../assets/signupGerente.css"
-const AssignGC = ()=>{
+
+const signupTeam = ()=>{
     return(
         <div>
             <section className="divisor">
                 <div className="izquierda">
-                    <h1 id="h1A">Asigna a tu GC!</h1>
-                    <h2 id="h2A">Crea el usuario de tu gestor de calidad</h2>
-                    <img className="Img-GC" src={img1} />
+                    <h1 id="h1A">Bienvenido</h1>
+                    <h2 id="h2A">Aquí puedes crear los usuarios con sus respectivos roles</h2>
+                    <img className="Img-R" src={img1} />
                 </div>
                 <div className="derecha">
                     <h1 id="h1R">Registro</h1>
@@ -32,8 +33,14 @@ const AssignGC = ()=>{
                         </div>
                         <div className="mb-3 row">
                             <div className="col-sm-10">
-                                <select disabled className="form-select select-b"  aria-label="Default select example">
-                                    <option selected>Gestor de calidad</option>
+                                <select className="form-select select-T"  aria-label="Default select example">
+                                    <option selected>Selecciona un rol</option>
+                                    <option value="1">Arquitecto de software</option>
+                                    <option value="2">Diseñador</option>
+                                    <option value="3">Product Owner</option>
+                                    <option value="3">Scrum Master</option>
+                                    <option value="3">Programador</option>
+                                    <option value="3">Tester</option>
                                 </select>
                             </div>
                         </div>
@@ -44,5 +51,4 @@ const AssignGC = ()=>{
         </div>
     )
 }
-
-export default AssignGC;
+export default signupTeam;
