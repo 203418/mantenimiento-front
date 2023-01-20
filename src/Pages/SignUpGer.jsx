@@ -1,8 +1,21 @@
 import React from "react";;
 import "../assets/signupGerente.css";
 import img1 from "/src/assets/img/clip-104.png";
+import { useDispatch } from 'react-redux';
+import { registerManager } from "../store/thunks/userThunks";
 
 const SignUpGer = ()=> {
+    const dispatch = useDispatch();
+    const handleClick = () => {
+        const body = {
+            name: 'Jesus Eduardo',
+            last_name: 'Jímenez Guillen',
+            rolls: 'MANAGER',
+            username: 'JEduardo27',
+            password: '12345678',
+        };
+        dispatch(registerManager(body));
+    };
     return  (
         <div>
             <section className="divisor">
@@ -31,7 +44,7 @@ const SignUpGer = ()=> {
                             <input type="password" className="form-control form-control-lg inputsL" placeholder="Password"  id="inputPassword "/>
                         </div>
                     </div>
-                    <button type="button" className="btn btn-cl">Registrar</button>
+                    <button onClick={handleClick} type="button" className="btn btn-cl">Registrar</button>
                 </section>
 
             </div>
