@@ -5,7 +5,7 @@ import AssignGC from "../Pages/AssignGC";
 import Option from "../Pages/Option";
 import SignupTeam from "../Pages/SignupTeam"
 import Login from "../Pages/Login";
-
+import DashboardG from "../Pages/dashboardG";
 const AppRouter = () => {
   return (
     <Router>
@@ -14,7 +14,8 @@ const AppRouter = () => {
             <Route path='/assignGC' element={<AssignGC />}/>
             <Route path='/option' element={<Option />}/>
             <Route path='/SignupTeam' element={<SignupTeam />}/>
-            <Route path='/login' element={<Login />}/>
+            <Route path='/login' element={<Login />}/>ç
+            <Route path='/dashboardG' element={<DashboardG />}/>
         </Routes>
     </Router>
   )
