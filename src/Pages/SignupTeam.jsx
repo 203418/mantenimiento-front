@@ -1,8 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import img1 from "../assets/img/clip-1717.png";
 import "../assets/signupGerente.css"
+import {useDispatch} from "react-redux";
+import {registerManager} from "../store/thunks/userThunks.js";
 
 const signupTeam = ()=>{
+    const dispatch = useDispatch();
+    const [form, setForm] = useState({})
+
+    const handleClick = () => {
+
+        const body = {
+            name: form.name,
+            last_name: form.last_name,
+            rolls: 'MANAGER',
+            username: form.username,
+            password: form.password,
+        };
+
+
+        dispatch(registerManager(body));
+    };
+
+    const handleChange = e => {
+        setForm({
+            ...form, [e.target.name]: e.target.value,
+        });
+    };
+
+
     return(
         <div>
             <section className="divisor">
@@ -17,18 +43,18 @@ const signupTeam = ()=>{
                     <section id="sect">
                         <div className="mb-3 row">
                             <div className="col-sm-10 inp ">
-                                <input type="text"  className="form-control form-control-lg nombres"  placeholder="Nombre"/>
-                                <input type="text"  className="form-control form-control-lg apellidos"  placeholder="Apellidos"/>
+                                <input type="text"  className="form-control form-control-lg nombres" name='name' onChange={handleChange}  placeholder="Nombre"/>
+                                <input type="text"  className="form-control form-control-lg apellidos" name='last_name' onChange={handleChange}  placeholder="Apellidos"/>
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <div className="col-sm-10">
-                                <input type="text"  className="form-control form-control-lg inputsL"  placeholder="Usuario"/>
+                                <input type="text"  className="form-control form-control-lg inputsL" name='user' onChange={handleChange} placeholder="Usuario"/>
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <div className="col-sm-10">
-                                <input type="password" className="form-control form-control-lg inputsL" placeholder="Password"  id="inputPassword "/>
+                                <input type="password" className="form-control form-control-lg inputsL" name='password' onChange={handleChange} placeholder="Password"  id="inputPassword "/>
                             </div>
                         </div>
                         <div className="mb-3 row">
@@ -44,7 +70,7 @@ const signupTeam = ()=>{
                                 </select>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-cl">Registrar</button>
+                        <button onClick={handleClick} type="button" className="btn btn-cl">Registrar</button>
                     </section>
                 </div>
             </section>

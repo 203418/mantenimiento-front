@@ -10,8 +10,9 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         loginUSer: (state, action) => {
-            state.user = action.payload;
-            state.user.isLogged = true;
+            state.name = action.payload.name;
+            state.last_name = action.payload.last_name;
+            state.username = action.payload.username;
         }
     }
 });

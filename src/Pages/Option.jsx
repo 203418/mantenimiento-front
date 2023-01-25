@@ -2,15 +2,25 @@ import React from "react";
 
 import "../assets/Option.css"
 import img3 from "../assets/img/clip-961.png"
+import {BrowserRouter as Router, Link, Navigate, Route, Routes} from "react-router-dom";
 
 const Option = ()=>{
+
+
+
     return(
+
         <div>
             <section className="linea">
                 <div className="le">
                     <h1 className="h1left">Elige una opción</h1>
-                    <button type="button" className="btn btn-op">Agregar mas miembros</button>
-                    <button type="button" className="btn btn-op">Delegar al gestor de calidad</button>
+
+                    <Link to={'/SignupTeam'}> <button type="button" className="btn btn-op">Agregar mas miembros</button> </Link>
+
+                    <Link to={'/assignGC'}> <button type="button" className="btn btn-op">Delegar al gestor de calidad</button> </Link>
+
+                    <Link to={'/login'}> <button onClick={ () => { localStorage.clear() }} type="button" className="btn btn-op"> Salir </button> </Link>
+
                 </div>
                 <div className="ri">
                     <h1 className="h1o">Bien hecho!</h1>
