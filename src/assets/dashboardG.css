@@ -78,8 +78,11 @@
 }
 .opciones{
     font-size: 20px;
+    border: none;
+    background: none;
     margin-top: 18%;
     margin-left: 10%;
+    font-weight: bold;
     color: #5A5A5A;
     display: inline-block;
 }

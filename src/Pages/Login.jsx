@@ -2,7 +2,8 @@ import React from "react";
 import "../assets/login.css"
 import imgH from "../assets/img/clip-hardworking-man.png"
 
-const Login = ()=>{
+const Login = () => {
+    console.log('Hola');
     return(
         <div>
             <section className="med">
