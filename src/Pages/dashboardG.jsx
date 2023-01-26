@@ -62,7 +62,7 @@ const DashboardG =()=>{
                                 option == 1 &&  <Manual />
                             }
                             {
-                                option == 2 && <GestionUser />
+                                option == 2 && <GestionFases />
                             }
                             {
                                 option == 3 && <GestionTeam />
@@ -78,6 +78,6 @@ const DashboardG =()=>{
 
 import "../assets/dashboardG.css"
 import { useState } from "react";
-import GestionUser from "../components/GestionUser";
+import GestionFases from "../components/GestionFases";
 import GestionTeam from "../components/GestionTeam";
 export default DashboardG;
