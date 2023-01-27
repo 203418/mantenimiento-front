@@ -13,7 +13,7 @@ export const registerManager = (body) => {
 export const login = (body) => {
     return async(dispatch, getState) => {
         const { data } = await axiosInstance
-            .post('users/login', body);
+            .post('users/auth/Login', body);
 
         localStorage.setItem('token', data.token);
 
