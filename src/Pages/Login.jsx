@@ -9,7 +9,6 @@ const Login = ()=>{
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({})
     const [redirect, setRedirect] = useState(false);
-
     const handleClick = () => {
         const body = {
             name: formData.name,
