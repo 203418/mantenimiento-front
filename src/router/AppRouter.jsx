@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PublicRouter from './PublicRouter';
 import AuthRouter from './AuthRouter';
 import PrivateRouter from './PrivateRouter';
 import DashBoardRoute from './DashBoardRoute';
+import { loginByToken } from '../store/thunks/userThunks';
 const AppRouter = () => {
+  const dispatch = useDispatch();
+  const [isLogged, setIsLogged] = useState(false)
   const {user} = useSelector(state => state.user);
-  let isLogged = false;
-  if (user?.id) isLogged = true;
-  else isLogged = false;
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token !== null || token !== undefined) {
+      dispatch(loginByToken({ token }))
+    }
+    if (user?.id) setIsLogged(true);
+    else setIsLogged(false);
+  }, [dispatch, isLogged, user.id]);
   return (
     <Router>
         <Routes>

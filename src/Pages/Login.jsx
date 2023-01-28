@@ -1,9 +1,36 @@
-import React from "react";
+import React, {  useEffect, useState } from "react";
 import "../assets/login.css"
 import imgH from "../assets/img/clip-hardworking-man.png"
+import { axiosInstance } from "../helpers/axios";
+import { Navigate } from "react-router-dom";
+import { useForm } from "../customHooks/useForm";
+import { useDispatch } from "react-redux";
+import { login } from "../store/thunks/userThunks";
+
+const initialForm = {
+    username: '',
+    password: ''
+}
 
 const Login = () => {
-    console.log('Hola');
+    const [values, handleInputChange, reset] = useForm(initialForm);
+    const [count, setCount] = useState(null);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        instance();
+    }, []);
+    const instance = async() => {
+        axiosInstance.get('/users/count')
+        .then(r => setCount(r.data.count));
+    }
+    const handleClick = () => {
+        const { username, password } = values;
+        const body = {
+            username, password
+        };
+        console.log(body);
+        dispatch(login(body));
+    }
     return(
         <div>
             <section className="med">
@@ -13,15 +40,16 @@ const Login = () => {
                     <section id="sectioncss">
                         <div className="mb-3 row">
                             <div className="col-sm-10">
-                                <input type="text"  className="form-control form-control-lg inputsLogin"  placeholder="Usuario"/>
+                                <input type="text" onChange={handleInputChange} name="username"  className="form-control form-control-lg inputsLogin"  placeholder="Usuario"/>
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <div className="col-sm-10">
-                                <input type="password" className="form-control form-control-lg inputsLogin" placeholder="Password"  id="inputPassword "/>
+                                <input onChange={handleInputChange} name="password" type="password" className="form-control form-control-lg inputsLogin" placeholder="Password"  id="inputPassword "/>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-login">Entrar</button>
+                        <button onClick={handleClick} type="button" className="btn btn-login">Entrar</button>
+                        {count == "-1" && <Navigate to={'/auth/signUp/Ger'} />}
                     </section>
                 </div>
                 <div className="rigthh">
