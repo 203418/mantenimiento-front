@@ -3,6 +3,7 @@ import img1 from "../assets/img/clip-961.png";
 import "../assets/signupGerente.css"
 import {registerGC} from "../store/thunks/userThunks.js";
 import {useDispatch} from "react-redux";
+import {Link} from "react-router-dom";
 const AssignGC = ()=>{
 
     const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const AssignGC = ()=>{
                             </div>
                         </div>
                         <button onClick={handleClick} type="button" className="btn btn-cl">Registrar</button>
+                        <Link to={'/option'}> <button type="button" className="btn btn-cl"> Cancelar </button> </Link>
                     </section>
                 </div>
             </section>

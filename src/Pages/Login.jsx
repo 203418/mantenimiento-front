@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "../assets/login.css"
 import imgH from "../assets/img/clip-hardworking-man.png"
 import {login, registerManager} from "../store/thunks/userThunks.js";
@@ -11,12 +11,10 @@ const Login = ()=>{
     const [redirect, setRedirect] = useState(false);
     const handleClick = () => {
         const body = {
-            name: formData.name,
-            last_name: formData.last_name,
-            rolls: 'MANAGER',
             username: formData.username,
             password: formData.password,
         };
+
         dispatch(login(body));
 
         if(localStorage.getItem('token')){

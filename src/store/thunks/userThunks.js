@@ -11,14 +11,17 @@ export const registerManager = (body) => {
 }
 
 export const login = (body) => {
-    return async(dispatch, getState) => {
-        const { data } = await axiosInstance
-            .post('users/auth/Login', body);
+    return async (dispatch, getState) => {
+        const { data } = await (axiosInstance)
+            .post('users/Login', body);
 
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token)
 
-        const rolls = data.rolls.map(r => r.name);
-        dispatch(loginUSer({name: data.name, last_name: data.last_name, rolls, username: data.username, token: localStorage.getItem('token')}));
+        console.log(localStorage.getItem('token'));
+
+
+        const rolls = data.rolls.map(r => r.rolls);
+        dispatch(loginUSer({username: data.username, name: data.name, rolls}));
     }
 }
 

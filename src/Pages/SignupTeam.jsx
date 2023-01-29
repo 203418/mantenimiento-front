@@ -2,24 +2,37 @@ import React, {useState} from "react";
 import img1 from "../assets/img/clip-1717.png";
 import "../assets/signupGerente.css"
 import {useDispatch} from "react-redux";
-import {registerManager} from "../store/thunks/userThunks.js";
+import { registerTeam} from "../store/thunks/userThunks.js";
+import { Link } from "react-router-dom";
+
 
 const signupTeam = ()=>{
     const dispatch = useDispatch();
     const [form, setForm] = useState({})
+
+
+
 
     const handleClick = () => {
 
         const body = {
             name: form.name,
             last_name: form.last_name,
-            rolls: 'MANAGER',
+            rolls: form.roll,
             username: form.username,
             password: form.password,
         };
 
+        console.log(body)
 
-        dispatch(registerManager(body));
+        if (body.name || body.last_name || body.roll || body.username || (body.password  && body.password === '' )){
+            dispatch(registerTeam(body));
+        }else {
+            console.log('Elementos invalidos');
+        }
+
+
+
     };
 
     const handleChange = e => {
@@ -49,7 +62,7 @@ const signupTeam = ()=>{
                         </div>
                         <div className="mb-3 row">
                             <div className="col-sm-10">
-                                <input type="text"  className="form-control form-control-lg inputsL" name='user' onChange={handleChange} placeholder="Usuario"/>
+                                <input type="text"  className="form-control form-control-lg inputsL" name='username' onChange={handleChange} placeholder="Usuario"/>
                             </div>
                         </div>
                         <div className="mb-3 row">
@@ -59,18 +72,18 @@ const signupTeam = ()=>{
                         </div>
                         <div className="mb-3 row">
                             <div className="col-sm-10">
-                                <select className="form-select select-T"  aria-label="Default select example">
-                                    <option selected>Selecciona un rol</option>
-                                    <option value="1">Arquitecto de software</option>
-                                    <option value="2">Diseñador</option>
-                                    <option value="3">Product Owner</option>
-                                    <option value="3">Scrum Master</option>
-                                    <option value="3">Programador</option>
-                                    <option value="3">Tester</option>
+                                <select name='roll' placeholder="Seleccione un roll" className="form-select select-T" aria-label="Default select example" onChange={handleChange}>
+                                    <option value="SOFTWARE ARCHITECT">Arquitecto de software</option>
+                                    <option value="DESIGNER">Diseñador</option>
+                                    <option value="PRODUCT OWNER">Product Owner</option>
+                                    <option value="SCRUM MASTER">Scrum Master</option>
+                                    <option value="DEVELOPER">Programador</option>
+                                    <option value="TESTER">Tester</option>
                                 </select>
                             </div>
                         </div>
                         <button onClick={handleClick} type="button" className="btn btn-cl">Registrar</button>
+                        <Link to={'/option'}> <button type="button" className="btn btn-cl"> Cancelar </button> </Link>
                     </section>
                 </div>
             </section>

@@ -2,7 +2,7 @@ import React from "react";
 
 import "../assets/Option.css"
 import img3 from "../assets/img/clip-961.png"
-import {BrowserRouter as Router, Link, Navigate, Route, Routes} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Option = ()=>{
 
