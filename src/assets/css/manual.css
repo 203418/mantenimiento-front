@@ -1,0 +1,5 @@
+.container-pro{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+}
