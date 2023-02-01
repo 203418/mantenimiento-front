@@ -20,11 +20,19 @@ const SignUpGer = ()=> {
     const [values, handleInputChange, reset] = useForm(initialForm);
     
     useEffect(() => {
-        instance();
+        const count = localStorage.getItem('count');
+        console.log(count);
+        if (count === null || count === undefined)
+            instance();
+        else
+            setCount(count);
     }, []);
     const instance = async() => {
         axiosInstance.get('/users/count')
-        .then(r => setCount(r.data.count));
+        .then(r => {
+            setCount(r.data.count)
+            localStorage.setItem('count', r.data.count)
+        });
     }
     const handleClick = () => {
         const { name, last_name, username, password } = values;
@@ -63,7 +71,7 @@ const SignUpGer = ()=> {
                         </div>
                     </div>
                     <button onClick={handleClick} type="button" className="btn btn-cl">Registrar</button>
-                    {count == "1" && <Navigate to={'/auth/login'} />}
+                    {count !== "-1" && <Navigate to={'/auth/login'} />}
                 </section>
 
             </div>

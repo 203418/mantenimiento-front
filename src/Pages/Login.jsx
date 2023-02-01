@@ -17,11 +17,18 @@ const Login = () => {
     const [count, setCount] = useState(null);
     const dispatch = useDispatch();
     useEffect(() => {
-        instance();
+        const count = Number(localStorage.getItem('count'));
+        console.log(count);
+        if (count === null || count === undefined)
+            instance();
+        else setCount(count);
     }, []);
     const instance = async() => {
         axiosInstance.get('/users/count')
-        .then(r => setCount(r.data.count));
+        .then(r => {
+            localStorage.setItem('count', r.data.count);
+            setCount(r.data.count)
+        });
     }
     const handleClick = () => {
         const { username, password } = values;

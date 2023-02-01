@@ -1,10 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import img1 from "../assets/img/clip-1717.png";
 import "../assets/signupGerente.css"
+import { useForm } from "../customHooks/useForm";
+import { axiosInstance } from "../helpers/axios";
+import { getRolls } from "../helpers/requests/rolls";
 
-const signupTeam = ()=>{
+const INITIAL_DATA = {
+    name: '',
+    last_name: '',
+    username: '',
+    password: '',
+};
+
+const SignupTeam = ()=>{
+    const navigate = useNavigate();
+    const [rolls, setRolls] = useState(0);
+    const [select, setSelect] = useState("")
+    const [values, handleInputChange, reset] = useForm(INITIAL_DATA);
+    useEffect(() => {
+      getRolls()
+        .then(r => {
+            setRolls(r.data.map(roll => roll.name));
+        });
+        
+    }, [])
+
+    const handleBack = () => {
+        navigate(-1);
+    }
+
+    const handleSelectChange = (e) => {
+        // console.log(e);
+        setSelect(e.target.value);
+    }
+
+    const handleClick = () => {
+        const { name, last_name, rolls, username, password } = values;
+        const body = {
+            name, last_name, rolls: [select], username, password
+        };
+        // console.log(body);
+        axiosInstance.post('users/register', body)
+            .then(response => {
+                navigate(-1);
+            })
+            .catch(response => {
+                console.log(response);
+            });
+    };
+
     return(
-        <div>
+        <>
+            {
+                rolls !== 0 &&
             <section className="divisor">
                 <div className="izquierda">
                     <h1 id="h1A">Bienvenido</h1>
@@ -14,41 +63,36 @@ const signupTeam = ()=>{
                 <div className="derecha">
                     <h1 id="h1R">Registro</h1>
                     <br/>
-                    <section id="sect">
-                        <div className="mb-3 row">
-                            <div className="col-sm-10 inp ">
-                                <input type="text"  className="form-control form-control-lg nombres"  placeholder="Nombre"/>
-                                <input type="text"  className="form-control form-control-lg apellidos"  placeholder="Apellidos"/>
+                    <div className="formContainer">
+                        <div className="form">
+                            <div className="containerInput containerGDates">
+                                <input onChange={handleInputChange} name="name" type="text"  className="inputs form-control form-control-lg"  placeholder="Nombre"/>
+                                <input onChange={handleInputChange} name="last_name" type="text"  className="inputs form-control form-control-lg"  placeholder="Apellidos"/>
                             </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <div className="col-sm-10">
-                                <input type="text"  className="form-control form-control-lg inputsL"  placeholder="Usuario"/>
+                            <div className="containerInput username">
+                                <input onChange={handleInputChange} name="username" type="text"  className="inputs form-control form-control-lg"  placeholder="Usuario"/>
                             </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <div className="col-sm-10">
-                                <input type="password" className="form-control form-control-lg inputsL" placeholder="Password"  id="inputPassword "/>
+                            <div className="containerInput password">
+                                <input onChange={handleInputChange} name="password" type="password" className="inputs form-control form-control-lg" placeholder="Password"  id="inputPassword "/>
                             </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <div className="col-sm-10">
-                                <select className="form-select select-T"  aria-label="Default select example">
-                                    <option selected>Selecciona un rol</option>
-                                    <option value="1">Arquitecto de software</option>
-                                    <option value="2">Diseñador</option>
-                                    <option value="3">Product Owner</option>
-                                    <option value="3">Scrum Master</option>
-                                    <option value="3">Programador</option>
-                                    <option value="3">Tester</option>
+                            <div className="select">
+                                <select onChange={handleSelectChange} name="roll" className="inputs selectInput form-select"  aria-label="Default select example">
+                                    <option hidden value={""}>Selecciona un rol</option>
+                                    {
+                                        rolls.map((r, i) => <option key={`${r}${i}`} value={r}>{r}</option>)
+                                    }
                                 </select>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-cl">Registrar</button>
-                    </section>
+                        <div className="button">
+                            <button onClick={handleClick} type="button" className="buttonI btn btn-primary">Registrar</button>
+                            <button onClick={handleBack} type="button" className="buttonI btn btn-danger">Cancelar</button>
+                        </div>
+                    </div> 
                 </div>
             </section>
-        </div>
+            }
+        </>
     )
 }
-export default signupTeam;
+export default SignupTeam;

@@ -38,6 +38,35 @@
 
 .top-menu{
     height: 30%;
+    width: 90%;
+    margin-left: 9%;
+    display: flex;
+    align-items: center;
+}
+
+.text {
+    width: 70%;
+}
+
+.image {
+    width: 30%;
+}
+
+.text p {
+    font-size: 30px;
+    font-style: oblique;
+}
+
+.text span {
+    margin-bottom: 0;
+    font-size: 30px;
+    font-style: oblique;
+    margin-left: 50%;
+}
+
+.content {
+    height: 60%;
+    
 }
 
 .diviss{
@@ -110,7 +139,7 @@
     margin-left: 9%;
     font-weight: bold;
     color: #5A5A5A;
-    display: inline-block;
+    /* display: inline-block; */
 }
 .opciones2{
     font-size: 20px;

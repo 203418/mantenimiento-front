@@ -1,14 +1,61 @@
+.formContainer {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.containerGDates{
+    display: flex;
+    justify-content: space-between;
+}
+.containerGDates input {
+    width: 49%;
+}
+.inputs {
+    border-color: #49B5EB;;
+    padding: 10px;
+}
+
+.containerInput {
+    margin-bottom: 4%;
+}
+.select {
+    width: 100%;
+    display: flex;
+    justify-content: center ;
+}
+
+.selectInput {
+    width: 50%;
+}
+
+.button {
+    margin-top: 7%;
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonI {
+    margin-right: 10px;
+    font-size: 20px;
+    padding: 10px 15px;
+}
+
 .izquierda{
     background-color: #4058F5;
     height: 100vh;
-    width: 51%;
-    margin-top: -10px;
-    margin-left: -10px;
+    width: 50%;
+    /* margin-top: -10px; */
+    /* margin-left: -15px; */
 }
 .derecha{
-    width: 49%;
-    height: 100vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
     margin-top: -10px;
+    align-items: center;
  }
 .divisor{
 
@@ -16,7 +63,7 @@
 }
 #h1A{
     margin-left: 100px;
-    margin-top: 100px;
+    margin-top: 2%;
     font-size: 48px;
 
     color: white;
@@ -50,7 +97,7 @@
     line-height: 58px;
 }
 #sect{
-    margin: 0 auto 0 15%;
+    /* margin: 0 auto 0 15%; */
     width: 85%;
     height: 40%;
 

@@ -4,7 +4,10 @@ import "../assets/dashboardG.css"
 import calendar from "../assets/icons/calendar.svg"
 import menu from "../assets/icons/menu.svg"
 import table from "../assets/icons/table.svg"
+import { useSelector } from 'react-redux'
 const Aside = () => {
+  const { user } = useSelector(state => state.user);
+  
   return (
     <>
       <div className="head">
@@ -12,7 +15,7 @@ const Aside = () => {
       </div>
       <img className="img-Perfil" src={pruebaF}/>
       <h1 className="saludo">Hola,</h1>
-      <h1 className="nameUser">Luis Paulo</h1>
+      <h1 className="nameUser">{user.name}</h1>
       <div className="group1">
           <h1 className="title-w">Dashboard</h1>
           <img className="icons" src={menu}/>

@@ -6,7 +6,15 @@ export const registerManager = (body) => {
         const { data } = await axiosInstance
             .post('users/register/first', body);
         const rolls = data.rolls.map(r => r.name);
-        dispatch(loginUSer({name: data.name, rolls}));
+        dispatch(loginUSer({
+            id: data.id,
+            name: data.name,
+            last_name: data.last_name,
+            rolls,
+            token: data.token,
+
+        }));
+        localStorage.setItem('count', 1);
     }
 }
 
@@ -14,6 +22,7 @@ export const loginByToken = (body) => {
     return async(dispatch, getState) => {
         const { data } = await axiosInstance
             .post('users/login/token', body);
+        console.log(data)
         if (data.user !== null) {
             const rolls = data.user.rolls.map(r => r.name);
             dispatch(loginUSer({
@@ -21,7 +30,7 @@ export const loginByToken = (body) => {
                 name: data.user.name,
                 last_name: data.user.last_name,
                 rolls,
-                token: data.user.token
+                token: data.token
             }));
         }
     }
@@ -32,6 +41,7 @@ export const login = (body) => {
         const { data } = await axiosInstance
             .post('users/login', body);
         const rolls = data.rolls.map(r => r.name);
+        console.log(data)
         dispatch(loginUSer({
             id: data.id,
             name: data.name,

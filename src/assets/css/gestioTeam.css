@@ -1,0 +1,31 @@
+.btn-p {
+    border: none;
+    background: none;
+    margin: 0 !important;
+    padding: 1.5px !important;
+}
+.containerTeam {
+    margin-left: 8%;
+    height: 96% !important;
+    width: 90%;
+    background-color: white;
+}
+.buttonC {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 2%;
+}
+.buttonA {
+    width: 20%;
+}
+.scrollable-table {
+    width: 100%;
+    overflow: auto;
+  }
+
+.scrollable-table tbody {
+  display: block;
+  height: 200px;
+  overflow: auto;
+}

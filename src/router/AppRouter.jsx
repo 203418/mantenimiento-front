@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import PublicRouter from './PublicRouter';
 import AuthRouter from './AuthRouter';
 import PrivateRouter from './PrivateRouter';
-import DashBoardRoute from './DashBoardRoute';
 import { loginByToken } from '../store/thunks/userThunks';
+import DashBoardRoute from './DashBoardRoute';
 const AppRouter = () => {
   const dispatch = useDispatch();
   const [isLogged, setIsLogged] = useState(false)
