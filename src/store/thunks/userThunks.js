@@ -22,7 +22,6 @@ export const loginByToken = (body) => {
     return async(dispatch, getState) => {
         const { data } = await axiosInstance
             .post('users/login/token', body);
-        console.log(data)
         if (data.user !== null) {
             const rolls = data.user.rolls.map(r => r.name);
             dispatch(loginUSer({
@@ -32,23 +31,28 @@ export const loginByToken = (body) => {
                 rolls,
                 token: data.token
             }));
+            localStorage.setItem('token', data.user.token);
         }
     }
 }
 
 export const login = (body) => {
     return async(dispatch, getState) => {
-        const { data } = await axiosInstance
-            .post('users/login', body);
-        const rolls = data.rolls.map(r => r.name);
-        console.log(data)
-        dispatch(loginUSer({
-            id: data.id,
-            name: data.name,
-            last_name: data.last_name,
-            rolls,
-            token: data.token
-        }));
-        localStorage.setItem('token', data.token);
+        await axiosInstance
+            .post('users/login', body)
+            .then(async({data}) => {
+                const rolls = data.rolls.map(r => r.name);
+                const token = data.token;
+                if (data !== null) {
+                    dispatch(loginUSer({
+                        id: data.id,
+                        name: data.name,
+                        last_name: data.last_name,
+                        rolls,
+                        token
+                    }));
+                    await localStorage.setItem('token', token);
+                }
+            });
     }
 }

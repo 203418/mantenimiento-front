@@ -10,15 +10,19 @@ import Table from './Table';
 const GestionTeam = () => {
   const [data, setData] = useState(0);
   const { user } = useSelector(state => state.user);
+  const [token, setToken] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    
+    console.log(localStorage.getItem('token'));
     getUserDifferentOfId(user.id).then(res => {
       setData(res.data.map(r => ({
         Id: r.id, Nombre: r.name, Roles: r.rolls.map(r => r.name), Actions: ''
       })));
+
     }).catch(r => setData([]));
-  }, [])
+  }, [token])
 
   const handleClick = () => {
     navigate('/registerTeam')

@@ -12,7 +12,7 @@ const AppRouter = () => {
   const {user} = useSelector(state => state.user);
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token !== null || token !== undefined) {
+    if (token !== null && token !== undefined) {
       dispatch(loginByToken({ token }))
     }
     if (user?.id) setIsLogged(true);
