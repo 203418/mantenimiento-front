@@ -16,9 +16,7 @@ export const login = (body) => {
             .post('users/Login', body);
 
         localStorage.setItem('token', data.token)
-
         console.log(localStorage.getItem('token'));
-
 
         const rolls = data.rolls.map(r => r.rolls);
         dispatch(loginUSer({username: data.username, name: data.name, rolls}));
