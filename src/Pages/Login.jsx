@@ -1,8 +1,7 @@
 import React, {  useEffect, useState } from "react";
 import "../assets/login.css"
 import imgH from "../assets/img/clip-hardworking-man.png"
-import { axiosInstance } from "../helpers/axios";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import { login } from "../store/thunks/userThunks";
@@ -16,20 +15,6 @@ const Login = () => {
     const [values, handleInputChange, reset] = useForm(initialForm);
     const [count, setCount] = useState(null);
     const dispatch = useDispatch();
-    useEffect(() => {
-        const count = Number(localStorage.getItem('count'));
-        console.log(count);
-        if (count === null || count === undefined)
-            instance();
-        else setCount(count);
-    }, []);
-    const instance = async() => {
-        axiosInstance.get('/users/count')
-        .then(r => {
-            localStorage.setItem('count', r.data.count);
-            setCount(r.data.count)
-        });
-    }
     const handleClick = () => {
         const { username, password } = values;
         const body = {
@@ -50,13 +35,19 @@ const Login = () => {
                                 <input type="text" onChange={handleInputChange} name="username"  className="form-control form-control-lg inputsLogin"  placeholder="Usuario"/>
                             </div>
                         </div>
+
                         <div className="mb-3 row">
                             <div className="col-sm-10">
                                 <input onChange={handleInputChange} name="password" type="password" className="form-control form-control-lg inputsLogin" placeholder="Password"  id="inputPassword "/>
                             </div>
                         </div>
+                        <div className="mb-3 row" style={{display: 'flex'}}>
+                            <div className="col-sm-10">
+                                <label>¿Primera Vez?</label>
+                                <Link to={'/auth/signUp/Ger'} style={{marginLeft: 10}} >Regstrate como gerente</Link>
+                            </div>
+                        </div>
                         <button onClick={handleClick} type="button" className="btn btn-login">Entrar</button>
-                        {count == "-1" && <Navigate to={'/auth/signUp/Ger'} />}
                     </section>
                 </div>
                 <div className="rigthh">

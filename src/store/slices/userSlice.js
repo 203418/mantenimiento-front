@@ -12,8 +12,12 @@ export const userSlice = createSlice({
         loginUSer: (state, action) => {
             state.user = action.payload;
             state.user.isLogged = true;
+        },
+        closeSesion: (state, action) => {
+            state.user = {}
+            state.isLogged = false;
         }
     }
 });
 
-export const { loginUSer } = userSlice.actions;
+export const { loginUSer, closeSesion } = userSlice.actions;

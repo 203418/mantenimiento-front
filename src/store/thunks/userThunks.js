@@ -1,9 +1,9 @@
-import { axiosInstance } from "../../helpers/axios"
+import { axiosCreate } from "../../helpers/axios"
 import { loginUSer } from "../slices/userSlice";
 
 export const registerManager = (body) => {
     return async(dispatch, getState) => {
-        const { data } = await axiosInstance
+        const { data } = await axiosCreate()
             .post('users/register/first', body);
         const rolls = data.rolls.map(r => r.name);
         dispatch(loginUSer({
@@ -14,13 +14,13 @@ export const registerManager = (body) => {
             token: data.token,
 
         }));
-        localStorage.setItem('count', 1);
+        localStorage.setItem('token', data.token)
     }
 }
 
 export const loginByToken = (body) => {
     return async(dispatch, getState) => {
-        const { data } = await axiosInstance
+        const { data } = await axiosCreate()
             .post('users/login/token', body);
         if (data.user !== null) {
             const rolls = data.user.rolls.map(r => r.name);
@@ -38,7 +38,7 @@ export const loginByToken = (body) => {
 
 export const login = (body) => {
     return async(dispatch, getState) => {
-        await axiosInstance
+        await axiosCreate()
             .post('users/login', body)
             .then(async({data}) => {
                 const rolls = data.rolls.map(r => r.name);

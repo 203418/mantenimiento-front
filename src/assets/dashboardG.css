@@ -1,4 +1,20 @@
+.containerAside{
+    display: flex;
+    flex-direction: column;
+}
+.containerText{
+    height: 70%;
+}
+.cerrarSesion {
+    margin-top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
+.cerrarSesion button {
+    width: 80%;
+}
 .background-d{
     background-color: #c9c9c9;
     width: 99%;
@@ -66,7 +82,9 @@
 
 .content {
     height: 60%;
-    
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
 
 .diviss{

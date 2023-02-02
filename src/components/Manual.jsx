@@ -1,14 +1,12 @@
 import React from 'react'
 import procesosIMG from "../assets/img/19962851_6203999.jpg"
 import  EvidenciaIMG from "../assets/img/3301472_490748-PH5A0U-472.jpg"
-import  EvidenciaCMG from "../assets/img/5275573_52393.jpg"
-import  confi from "../assets/img/2606116_5596.jpg"
 import '../assets/css/manual.css'
 
-const manual = () => {
+const manual = ({ onOptionChange }) => {
   return (
     <div className='container-pro'>
-        <div className="card size-card shadow p-3 mb-5 rounded">
+        <div onClick={() => onOptionChange(4)} className="process card size-card shadow p-3 mb-5 rounded">
             <div className="">
                 <img className="img-cards" src={procesosIMG}/>
                 <h5 className="label">Procesos</h5>

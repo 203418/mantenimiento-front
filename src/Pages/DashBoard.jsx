@@ -3,6 +3,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Aside from '../components/Aside';
 import SubDashboard from './SubDashboard';
 
+import '../assets/dashboardG.css'
+
 const DashBoard = () => {
   return (
       <div className='container-menu'>

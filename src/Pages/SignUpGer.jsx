@@ -4,8 +4,7 @@ import img1 from "/src/assets/img/clip-104.png";
 import { useForm } from '../customHooks/useForm';
 import { useDispatch } from 'react-redux';
 import { registerManager } from "../store/thunks/userThunks";
-import { axiosInstance } from "../helpers/axios";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const initialForm = {
     name: '',
@@ -16,24 +15,7 @@ const initialForm = {
 
 const SignUpGer = ()=> {
     const dispatch = useDispatch();
-    const [count, setCount] = useState(null)
     const [values, handleInputChange, reset] = useForm(initialForm);
-    
-    useEffect(() => {
-        const count = localStorage.getItem('count');
-        console.log(count);
-        if (count === null || count === undefined)
-            instance();
-        else
-            setCount(count);
-    }, []);
-    const instance = async() => {
-        axiosInstance.get('/users/count')
-        .then(r => {
-            setCount(r.data.count)
-            localStorage.setItem('count', r.data.count)
-        });
-    }
     const handleClick = () => {
         const { name, last_name, username, password } = values;
         const body = {
@@ -70,8 +52,13 @@ const SignUpGer = ()=> {
                             <input onChange={handleInputChange} type="password" name="password" className="form-control form-control-lg inputsL" placeholder="Password"  id="inputPassword "/>
                         </div>
                     </div>
+                    <div className="mb-3 row" style={{display: 'flex'}}>
+                            <div className="col-sm-10">
+                                <label>Ya tienes cuenta?</label>
+                                <Link to={'/auth/login'} style={{marginLeft: 10}} >Inicia Sesión</Link>
+                            </div>
+                        </div>
                     <button onClick={handleClick} type="button" className="btn btn-cl">Registrar</button>
-                    {count !== "-1" && <Navigate to={'/auth/login'} />}
                 </section>
 
             </div>

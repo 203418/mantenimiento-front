@@ -1,5 +1,5 @@
-import { axiosInstance } from "../axios"
+import { axiosCreate } from "../axios"
 
 export const getRolls = async() => {
-    return await axiosInstance.get('rolls/getRolls');
+    return await axiosCreate().get('rolls/getRolls');
 }

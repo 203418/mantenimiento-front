@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import img1 from "../assets/img/clip-1717.png";
 import "../assets/signupGerente.css"
 import { useForm } from "../customHooks/useForm";
-import { axiosInstance } from "../helpers/axios";
+import { axiosCreate } from "../helpers/axios";
 import { getRolls } from "../helpers/requests/rolls";
 
 const INITIAL_DATA = {
@@ -41,7 +41,7 @@ const SignupTeam = ()=>{
             name, last_name, rolls: [select], username, password
         };
         // console.log(body);
-        axiosInstance.post('users/register', body)
+        axiosCreate().post('users/register', body)
             .then(response => {
                 navigate(-1);
             })
