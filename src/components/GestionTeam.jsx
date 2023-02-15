@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Table from "./table";
 const GestionTeam = () => {
   return (
-    <div>GestionTeam</div>
+      <div className="overflow-auto review">
+          <Table/>
+      </div>
   )
 }
 

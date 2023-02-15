@@ -1,0 +1,25 @@
+.size-card-fases{
+    width: 80%;
+    height: 100%;
+
+}
+.font{
+    font-size: 20px;
+    text-align: center;
+}
+.img-fases{
+    margin-left: 10%;
+    width: 80%;
+    height: 80%;
+}
+.space{
+    margin-left: 13%;
+}
+.space2{
+    margin-left: -6%;
+}
+.review{
+    width: 900px;
+    height: 320px;
+    overflow: hidden;
+}
