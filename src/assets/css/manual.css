@@ -1,0 +1,8 @@
+.container-pro{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+}
+.process {
+    cursor: pointer;
+}
