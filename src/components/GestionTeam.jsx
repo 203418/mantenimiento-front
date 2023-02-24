@@ -6,7 +6,6 @@ import { getUserDifferentOfId } from '../helpers/requests/users';
 import { columns } from '../utils/columnsUser';
 import Table from './Table';
 
-
 const GestionTeam = () => {
   const [data, setData] = useState(0);
   const { user } = useSelector(state => state.user);
@@ -14,13 +13,10 @@ const GestionTeam = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
-    console.log(localStorage.getItem('token'));
     getUserDifferentOfId(user.id).then(res => {
       setData(res.data.map(r => ({
-        Id: r.id, Nombre: r.name, Roles: r.rolls.map(r => r.name), Actions: ''
+        Id: r.id, Nombre: r.name, Roles: r.rolls.map(r => r.name)
       })));
-
     }).catch(r => setData([]));
   }, [token])
 
@@ -32,7 +28,7 @@ const GestionTeam = () => {
     return (
       <div className='card card-body containerTeam'>
         <div className='buttonC'>
-          <button onClick={handleClick} type="button" className="buttonA btn btn-secondary">Agregar usuario</button>
+          <button onClick={handleClick} type="button" className="buttonA btn btn-secondary">Agregar usuarios</button>
         </div>
         <Table columns={columns} data={data}/>
       </div>

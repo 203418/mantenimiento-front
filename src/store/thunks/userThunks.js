@@ -56,3 +56,32 @@ export const login = (body) => {
             });
     }
 }
+export const deleteUser = (body) => {
+    return async(dispatch, getState) => {
+        await axiosCreate()
+            .delete(`users/delete`, { data: body })
+            .catch(error => console.log(error));
+    }
+}
+
+export const updateUSer = (body) => {
+    return async(dispatch, getState) => {
+        await axiosCreate()
+            .put(`users/update`, { data: body })
+            .then(async({data}) => {
+                const rolls = data.rolls.map(r => r.name);
+                const token = data.token;
+                if (data) {
+                    dispatch(loginUSer({
+                        id: data.id,
+                        name: data.name,
+                        last_name: data.last_name,
+                        rolls,
+                        token
+                    }));
+                    await localStorage.setItem('token', token);
+                }
+            })
+            .catch(error => console.log(error));
+    }
+}

@@ -24,6 +24,7 @@ const SignUpGer = ()=> {
         }
         dispatch(registerManager(body));
     };
+
     return  (
         <div>
             <section className="divisor">

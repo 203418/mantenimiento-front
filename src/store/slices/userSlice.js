@@ -16,6 +16,9 @@ export const userSlice = createSlice({
         closeSesion: (state, action) => {
             state.user = {}
             state.isLogged = false;
+        },
+        deleteUserId: (state, action) => {
+            state.user = {}
         }
     }
 });

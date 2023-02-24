@@ -34,6 +34,15 @@
     position: absolute;
     margin-left: 9%;
 }
+.iconDelete{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.iconUpdate{
+    margin-left: 15px;
+    cursor: pointer;
+}
 
 .form {
     padding-right: 0;
