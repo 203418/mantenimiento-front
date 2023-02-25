@@ -6,7 +6,7 @@ import '../assets/css/manual.css'
 const manual = ({ onOptionChange }) => {
   return (
     <div className='container-pro'>
-        <div onClick={() => onOptionChange(4)} className="process card size-card shadow p-3 mb-5 rounded">
+        <div onClick={() => onOptionChange(5)} className="process card size-card shadow p-3 mb-5 rounded">
             <div className="">
                 <img className="img-cards" src={procesosIMG}/>
                 <h5 className="label">Procesos</h5>

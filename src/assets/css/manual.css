@@ -3,6 +3,12 @@
     flex-direction: row;
     width: 90%;
 }
+.process-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
 .process {
     cursor: pointer;
 }

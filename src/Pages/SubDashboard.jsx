@@ -6,6 +6,7 @@ import "../assets/dashboardG.css"
 import Manual from '../components/Manual'
 import { useSelector } from "react-redux";
 import Form from "../components/Form";
+import Procesos from "../components/ProcesosList";
 
 const rolesG = [
     'SCRUM', 'QUALITY MANAGER', 'SOFTWARE ARCHITECT', 'PRODUCT OWNER', 'DEVELOPER','REQUIREMENTS', 'DESIGNER'
@@ -44,7 +45,6 @@ const SubDashboard =()=>{
     const handleClick = (option) => {
         setOption(option);
     }
-    
 
     return(        
             
@@ -67,6 +67,9 @@ const SubDashboard =()=>{
                 }
                 {
                     option == 4 && <Form onOptionChange={setOption}/>
+                } 
+                {
+                    option == 5 && <Procesos onOptionChange= {setOption}/>
                 }
                 </div>
             
