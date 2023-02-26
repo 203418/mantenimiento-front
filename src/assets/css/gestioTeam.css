@@ -35,13 +35,26 @@
     margin-left: 9%;
 }
 .iconDelete{
-    margin-right: 10px;
+
     cursor: pointer;
 }
 
 .iconUpdate{
-    margin-left: 15px;
     cursor: pointer;
+    margin-right: 15px;
+}
+
+.updateForm{
+    text-align: center;
+    background-color: rgba(13, 97, 189, 0.9);
+    position: fixed;
+    right: -1%;
+    padding-left: 50%;
+    padding-right: 50%;
+    padding-bottom: 50%;
+    z-index: 99;
+    top: 0%;
+    left: -15%;
 }
 
 .form {

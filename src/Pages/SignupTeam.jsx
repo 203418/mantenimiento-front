@@ -40,7 +40,7 @@ const SignupTeam = ()=>{
         const body = {
             name, last_name, rolls: [select], username, password
         };
-        // console.log(body);
+        //console.log(body);
         axiosCreate().post('users/register', body)
             .then(response => {
                 navigate(-1);
@@ -48,6 +48,7 @@ const SignupTeam = ()=>{
             .catch(response => {
                 console.log(response);
             });
+
     };
 
     return(

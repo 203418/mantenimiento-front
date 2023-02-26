@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react'
 import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel } from  '@tanstack/react-table';
 import '../assets/css/gestioTeam.css'
 
-import {useDispatch, useSelector} from 'react-redux';
-import {deleteUser, registerManager, updateUSer} from "../store/thunks/userThunks";
+import {useDispatch} from 'react-redux';
+import {deleteUser} from "../store/thunks/userThunks";
 import editar from "../assets/icons/editar.png"
 import eliminar from "../assets/icons/eliminar.png"
-import img1 from "../assets/img/clip-1717.png";
 import {useForm} from "../customHooks/useForm.js";
 import {getRolls} from "../helpers/requests/rolls.js";
+import {axiosCreate} from "../helpers/axios.js";
 
 const INITIAL_DATA = {
     name: '',
@@ -20,10 +20,10 @@ const INITIAL_DATA = {
 
 const Table = ({data, columns}) => {
     const dispatch = useDispatch();
-    const [updateData, setUpdateData] = useState([]);
+    const [updateData, setUpdateData] = useState();
     const [select, setSelect] = useState("")
     const [values, handleInputChange, reset] = useForm(INITIAL_DATA);
-    const [formUpdate, setFormUpdate] = useForm(false);
+    const [formUpdate, setFormUpdate] = useState(false);
     const [rolls, setRolls] = useState(0);
 
     useEffect(() => {
@@ -46,7 +46,6 @@ const Table = ({data, columns}) => {
         // Eliminar datos en la tabla
         const secondObject = data[id_];
         const id = secondObject.Id;
-        console.log(id)
         const body = {
             id
         }
@@ -54,42 +53,38 @@ const Table = ({data, columns}) => {
     };
 
     const handleUpdate = (id_) => {
-        // Eliminar datos en la tabla
-        const { name, last_name, username, password } = updateData;
-        const secondObject = data[id_];
-        const id = secondObject.Id;
         setFormUpdate(true)
-        console.log(data)
-        const body = {
-            id
-        }
-        //dispatch(updateUSer(body));
+        setUpdateData(id_)
     };
+
+    const updatedUser = () =>{
+        const { name, last_name, rolls, username, password } = values;
+        const secondObject = data[updateData];
+        const id = secondObject.Id;
+        const body = {
+            id, name, last_name, rolls: [select], username, password
+        }
+        axiosCreate().put('users/update', body)
+            .then(response => {
+                alert(response.status);
+            })
+            .catch(response => {
+                alert(response.status);
+            });
+        setFormUpdate(false);
+    }
 
     const handleSelectChange = (e) => {
         // console.log(e);
         setSelect(e.target.value);
     }
-    //const handleDelete = (id) => {
-    //    setRowData(prevData => prevData.filter(row => row.id !== id));
-    //    console.log(id)
-    //    const body = {
-    //        id
-    //    }
-    //    dispatch(deleteUser(body));
-    //};
     
   return (
     <> { formUpdate ?
-        <div className="viewUpdatePane">
+        <div className="updateForm">
             <section className="divisor">
-                <div className="izquierda">
-                    <h1 id="h1A">Bienvenido</h1>
-                    <h2 id="h2A">Aquí puedes crear los usuarios con sus respectivos roles</h2>
-                    <img className="Img-R" src={img1} />
-                </div>
-                <div className="derecha">
-                    <h1 id="h1R">Registro</h1>
+                <div className="">
+                    <h1 id="h1R">Actualizar usuario </h1>
                     <br/>
                     <div className="formContainer">
                         <div className="form">
@@ -113,8 +108,8 @@ const Table = ({data, columns}) => {
                             </div>
                         </div>
                         <div className="button">
-                            <button onClick={() => handleDelete()} type="button" className="buttonI btn btn-primary">Registrar</button>
-                            <button onClick={() => handleDelete()} type="button" className="buttonI btn btn-danger">Cancelar</button>
+                            <button onClick={() => updatedUser()} type="button" className="buttonI btn btn-primary">Registrar</button>
+                            <button onClick={() => setFormUpdate(false)} type="button" className="buttonI btn btn-danger">Cancelar</button>
                         </div>
                     </div>
                 </div>
@@ -152,8 +147,8 @@ const Table = ({data, columns}) => {
                 </td>
               ))}
                 <td>
+                    <img onClick={() => handleUpdate(row.id)} className="iconUpdate" height="20px" src={editar}/>
                     <img onClick={() => handleDelete(row.id)} className="iconDelete" height="20px" src={eliminar}/>
-                    <img onClick={() => setFormUpdate(true)} className="iconUpdate" height="20px" src={editar}/>
                 </td>
             </tr>
           ))}

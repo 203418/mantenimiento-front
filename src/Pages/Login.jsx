@@ -20,7 +20,6 @@ const Login = () => {
         const body = {
             username, password
         };
-        console.log(body);
         dispatch(login(body));
     }
     return(
