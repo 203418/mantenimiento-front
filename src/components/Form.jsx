@@ -19,10 +19,11 @@ const INITIALDATA = {
 }
 
 const Form = ({onOptionChange}) => {
+  
   const [values, handleInputChange, reset] = useForm(INITIALDATA);
-
+  console.log(values)
   const {user} = useSelector(state => state.user);
-
+  
   const handleclick = async () => {
     const formData = new FormData();
 
