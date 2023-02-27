@@ -5,19 +5,17 @@ import { useForm } from '../customHooks/useForm';
 import { axiosCreate } from '../helpers/axios';
 
 const INITIALDATA = {
-    name : '',
-    object : '',
-    identifier : '',
-    indicators : '',
-    diagram : null,
-    diagramI: null,
-    evidenciaE : null,
-    evidenciaEI: null,
-    evidenciaS : null,
-    evidenciaSI: null,
-    participants : '',
-    frecuency : '',
-    fase: ''
+    entry : null,
+    entries: null,
+    output : null,
+    outputs: null,
+    object : null,
+    description: null,
+    identifier : null,
+    indicators : null,
+    flujo_digram : null,
+    frecuencia : null,
+    fase: null
 }
 
 const Form = ({onOptionChange}) => {
@@ -25,47 +23,27 @@ const Form = ({onOptionChange}) => {
 
   const {user} = useSelector(state => state.user);
 
-  const handleclick = async() => {
-    const {
-      name,
-      object,
-      identifier,
-      indicators,
-      diagram,
-      diagramI,
-      evidenciaE,
-      evidenciaEI,
-      evidenciaS,
-      evidenciaSI,
-      participants,
-      frecuency,
-      fase,
-    } = values;
+  const handleclick = async () => {
+    const formData = new FormData();
 
-    const body = {
-      id: localStorage.getItem('idProcess'),
-      name,
-      object,
-      identifier,
-      indicators,
-      flujo_digramS: diagram,
-      flujo_digramI: diagramI,
-      participantes: participants,
-      evidencia_entradaS: evidenciaE,
-      evidencia_entradaI: evidenciaEI,
-      evidencia_salidaS: evidenciaS,
-      evidenciaE_salidaI: evidenciaSI,
-      frecuencia: frecuency,
-      fase,
-      idR: user.id,
+    formData.append("user", user.idR);
+
+    for (const [key, value] of Object.entries(values)) {
+      if (value != null) {
+        formData.append(key, value);
+      }
     }
 
-    const resp = await axiosCreate().post('process/register-process', body);  //Modificar a update process
-    if (resp.status === 200){
-      alert('Proceso agregado exitosamente');
+    const resp = await axiosCreate().put(
+      "process/" + localStorage.getItem("idProcess"),
+      formData
+    );
+    if (resp.status === 200) {
+      alert("Proceso actualizado exitosamente");
       onOptionChange(1);
     }
     console.log(resp);
+  
   }
   
   return (
@@ -73,13 +51,14 @@ const Form = ({onOptionChange}) => {
       <p onClick={() => onOptionChange(1)} style={{color: 'blue', fontSize: 20, cursor: 'pointer'}}>{"< Atras"}</p>
         <div className='form'>
             <div className='row'>
-              <div className="col-4">
-                <label htmlFor="name" className="form-label">Nombre del proceso</label>
-                <input onChange={handleInputChange} type="text" name="name" className="form-control" id="name" placeholder="Nombre del proceso" />
-              </div>
+              
               <div className="col-4">
                 <label htmlFor="object" className="form-label">Objetivo del proceso</label>
                 <input onChange={handleInputChange} type="text" name="object" className="form-control" id="object" placeholder="Objectivo" />
+              </div>
+              <div className="col-4">
+                <label htmlFor="description" className="form-label">Descripción del proceso</label>
+                <input onChange={handleInputChange} type="text" name="description" className="form-control" id="description" placeholder="Descripción" />
               </div>
             </div>
             <div className='row'>
@@ -98,45 +77,34 @@ const Form = ({onOptionChange}) => {
             </div>
             <div className='row'>
               <div className="col-5">
-                <label htmlFor="diagram" className="form-label">URL del diagrama de flujo</label>
-                <input onChange={handleInputChange} type="text" name="diagram" className="form-control" id="diagram" placeholder="wwww.google...." disabled={values.diagramI ? true : false}/>
+                <label htmlFor="flujo_digram" className="form-label">URL del flujo_digrama de flujo</label>
+                <input onChange={handleInputChange} type="text" name="flujo_digram" className="form-control" id="flujo_digram" placeholder="wwww.google...." />
               </div>
               <div className="col-3">
-                <label htmlFor="diagramI" className="form-label">Imagen diagrama de flujo</label>
-                <input onChange={handleInputChange} type="file" name="diagramI" className="form-control" id="diagramI" disabled={values.diagram ? true : false}/>
+                <label htmlFor="frecuencia" className="form-label">Frecuencia del proceso</label>
+                <input onChange={handleInputChange} type="text" name="frecuencia" className="form-control" id="frecuencia" placeholder="1 vez" />
               </div>
             </div>
             <div className='row'>
               <div className="col-5">
-                <label htmlFor="evidenciaE" className="form-label">URL de la evidencia de entrada</label>
-                <input onChange={handleInputChange} type="text" name="evidenciaE" className="form-control" id="evidenciaE" placeholder="wwww.google..." disabled={values.evidenciaEI ? true : false} />
+                <label htmlFor="entry" className="form-label">URL de la evidencia de entrada</label>
+                <input onChange={handleInputChange} type="text" name="entry" className="form-control" id="entry" placeholder="wwww.google..." disabled={values.entries ? true : false} />
               </div>
               <div className="col-3">
-                <label htmlFor="evidenciaEI" className="form-label">Imagen de la evidencia de entrada</label>
-                <input onChange={handleInputChange} type="file" name="evidenciaEI" className="form-control" id="evidenciaEI" disabled={values.evidenciaE ? true : false}/>
+                <label htmlFor="entries" className="form-label">Imagen de la evidencia de entrada</label>
+                <input onChange={handleInputChange} type="file" name="entries" className="form-control" id="entries" disabled={values.entry ? true : false}/>
               </div>
             </div>
             <div className='row'>
               <div className="col-5">
-                <label htmlFor="evidenciaS" className="form-label">URL de la evidencia de salida</label>
-                <input onChange={handleInputChange} type="text" name="evidenciaS" className="form-control" id="evidenciaS" placeholder="wwww.google..." />
+                <label htmlFor="output" className="form-label">URL de la evidencia de salida</label>
+                <input onChange={handleInputChange} type="text" name="output" className="form-control" id="output" placeholder="wwww.google..." disabled={values.outputs ? true : false}/>
               </div>
               <div className="col-3">
-                <label htmlFor="evidenciaSI" className="form-label">Imagen de la evidencia de salida</label>
-                <input onChange={handleInputChange} type="file" name="evidenciaSI" className="form-control" id="evidenciaSI" disabled={values.evidenciaS ? true : false}/>
+                <label htmlFor="outputs" className="form-label">Imagen de la evidencia de salida</label>
+                <input onChange={handleInputChange} type="file" name="outputs" className="form-control" id="outputs" disabled={values.output ? true : false}/>
               </div>
             </div>
-            <div className='row'>
-              <div className="col-4">
-                <label htmlFor="participants" className="form-label">Participantes</label>
-                <input onChange={handleInputChange} type="text" name="participants" className="form-control" id="participants" placeholder="Roy1234" />
-              </div>
-              <div className="col-4">
-                <label htmlFor="frecuency" className="form-label">Frecuencia del proceso</label>
-                <input onChange={handleInputChange} type="text" name="frecuency" className="form-control" id="frecuency" placeholder="1 vez" />
-              </div>
-            </div>
-
         </div>
         <div className='btns'>
           <button onClick={handleclick} className='btn btn-success'>Agregar proceso</button>

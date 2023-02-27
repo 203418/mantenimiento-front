@@ -6,7 +6,7 @@ const Procesos = ({ onOptionChange }) => {
   const [data, setData] = useState([]);
 
   async function fetchData() {
-    const response = await axiosCreate().get('process/getProcesos');
+    const response = await axiosCreate().get('process/');
     console.log(response.data)
     setData(response.data);
   }
