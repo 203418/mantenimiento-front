@@ -4,19 +4,22 @@ import '../assets/css/gestioTeam.css'
 import { useForm } from '../customHooks/useForm';
 import { axiosCreate } from '../helpers/axios';
 
+
 const INITIALDATA = {
-    entry : null,
     entries: null,
-    output : null,
-    outputs: null,
     object : null,
     description: null,
     identifier : null,
     indicators : null,
+    output: null,
     flujo_digram : null,
+    outputs : null,
     frecuencia : null,
-    fase: null
+    fase: null,
+    entry : null,
 }
+
+
 
 const Form = ({onOptionChange}) => {
   
@@ -30,14 +33,40 @@ const Form = ({onOptionChange}) => {
     formData.append("user", user.idR);
 
     for (const [key, value] of Object.entries(values)) {
-      if (value != null) {
-        formData.append(key, value);
-      }
+      if (key != "entries" && key != "outputs"){
+        if (value != null) {
+          formData.append(key, value);
+          if (value == "entries" || value == "outputs"){
+            const arch1 = entries.files[0]
+            formData.append(value, arch1, arch1.name);
+          }
+        }
+      } 
     }
+
+    console.log("entries:", entries.value);
+    console.log("outputs:", outputs.value);
+
+    if (entries.value !== '') {
+      const arch1 = entries.files[0]
+      formData.append("entries", arch1, arch1.name);
+    }
+
+    if (outputs.value !== '') {
+      const arch2 = outputs.files[0]
+      formData.append("outputs", arch2, arch2.name);
+      
+    }
+
+
 
     const resp = await axiosCreate().put(
       "process/" + localStorage.getItem("idProcess"),
-      formData
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
     );
     if (resp.status === 200) {
       alert("Proceso actualizado exitosamente");
