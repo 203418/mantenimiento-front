@@ -6,6 +6,11 @@ import table from "../assets/icons/table.svg"
 import "../assets/dashboardG.css"
 import Manual from '../components/Manual'
 import menuImg from "../assets/img/menuImg.png"
+import "../assets/dashboardG.css"
+import { useState } from "react";
+import GestionFases from "../components/GestionFases";
+import Procesos from "../components/Procesos";
+
 
 const DashboardG =()=>{
     const [option, setOption] = useState(1);
@@ -69,7 +74,7 @@ const DashboardG =()=>{
                                 option == 2 && <GestionFases />
                             }
                             {
-                                option == 3 && <GestionTeam />
+                                option == 3 && <Procesos />
                             }
                         </div>
                     </div>
@@ -80,8 +85,4 @@ const DashboardG =()=>{
     )
 }
 
-import "../assets/dashboardG.css"
-import { useState } from "react";
-import GestionFases from "../components/GestionFases";
-import GestionTeam from "../components/GestionTeam";
 export default DashboardG;
