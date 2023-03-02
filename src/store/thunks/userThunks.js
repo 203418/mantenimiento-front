@@ -1,5 +1,5 @@
 import { axiosCreate } from "../../helpers/axios"
-import { loginUSer } from "../slices/userSlice";
+import { addPhase, allPhases, loginUSer } from "../slices/userSlice";
 
 export const registerManager = (body) => {
     return async(dispatch, getState) => {
@@ -53,6 +53,30 @@ export const login = (body) => {
                     }));
                     await localStorage.setItem('token', token);
                 }
+            });
+    }
+}
+
+
+
+export const all = () => {
+    return async(dispatch, getState) => {
+        await axiosCreate()
+            .get('phases/')
+            .then(async({data}) => {
+                console.log(data);
+                dispatch(allPhases(data.data));
+            });
+    }
+}
+
+export const createPhase = () => {
+    return async(dispatch, getState) => {
+        await axiosCreate()
+            .post('phases/', body)
+            .then(async({data}) => {
+                console.log(data);
+                dispatch(addPhase({...data.data}));
             });
     }
 }

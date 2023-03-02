@@ -13,3 +13,20 @@ export const columns = [
     },
 
 ];
+
+export const procesos = [
+    {
+        accessorKey: 'Id',
+    },
+    {
+        accessorKey: 'Nombre',
+    },
+    {
+        accessorKey: 'Responsable',
+    },
+    {
+        accessorKey: 'Acciones',
+    },
+
+];
+
