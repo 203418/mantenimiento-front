@@ -9,6 +9,7 @@ import eliminar from "../assets/icons/eliminar.png"
 import {useForm} from "../customHooks/useForm.js";
 import {getRolls} from "../helpers/requests/rolls.js";
 import {axiosCreate} from "../helpers/axios.js";
+import Swal from "sweetalert2";
 
 const INITIAL_DATA = {
     name: '',
@@ -43,13 +44,30 @@ const Table = ({data, columns}) => {
     });
 
     const handleDelete = (id_) => {
-        // Eliminar datos en la tabla
         const secondObject = data[id_];
         const id = secondObject.Id;
         const body = {
             id
         }
-        dispatch(deleteUser(body));
+        Swal.fire({
+            title: '¿Eliminar usuario?',
+            text: "No podra revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteUser(body));
+                Swal.fire(
+                    'Eliminado!',
+                    'El usuario ha sido eliminado',
+                    'success'
+                )
+            }
+        })
+        // Eliminar datos en la tabla
     };
 
     const handleUpdate = (id_) => {
@@ -66,13 +84,23 @@ const Table = ({data, columns}) => {
         }
         axiosCreate().put('users/update', body)
             .then(response => {
-                alert(response.status);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Usuario actualizado',
+                    text: 'Se han guardado los cambios!',
+                })
             })
             .catch(response => {
-                alert(response.status);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No se actualizo el usuario',
+                })
             });
         setFormUpdate(false);
     }
+
+
 
     const handleSelectChange = (e) => {
         // console.log(e);

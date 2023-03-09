@@ -1,5 +1,6 @@
 import { axiosCreate } from "../../helpers/axios"
 import { loginUSer } from "../slices/userSlice";
+import Swal from "sweetalert2";
 
 export const registerManager = (body) => {
     return async(dispatch, getState) => {
@@ -63,6 +64,10 @@ export const deleteUser = (body) => {
             .then(response => {
                 alert(response.status);
             })
-            .catch(error => alert(error.status));
+            .catch(error => Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            }));
     }
 }
